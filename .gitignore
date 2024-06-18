@@ -21,6 +21,7 @@ env/
 .env
 
 # Migrations
+drone_flight_planner/__init__.py
 accounts_engine/__init__.py
 accounts_engine/migrations/
 
