@@ -266,7 +266,7 @@ class SendOtpAPI(APIView):
             user.otp = sms_details["otp"]
             user.otp_send_datetime = timezone.now()
             user.save()
-            message = f'Successfully otp send to your registered number: {sms_details["otp"]}'
+            message = "Successfully otp send to your registered number}"
             logger_info.info(f"{message} Phone number: {user.contact}")
             return Response(success_true_response(message=message))
 

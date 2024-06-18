@@ -42,7 +42,7 @@ class CustomUserSerializer(ModelSerializer):
 
         if request_method == "GET":
             # Include only specific fields during GET request
-            allowed_fields = ("id", "username", "about", "contact", "created_datetime")
+            allowed_fields = ("id", "username", "about", "contact", "created_datetime", "updated_datetime")
             fields = {field: fields[field] for field in allowed_fields}
 
         return fields
