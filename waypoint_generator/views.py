@@ -6,6 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+import matplotlib.pyplot as plt
 
 from waypoint_generator.models import FlightPath
 from waypoint_generator.serializers import FlightPathSerializer
@@ -13,6 +14,9 @@ from accounts_engine.utils import success_true_response, success_false_response
 
 
 import logging
+
+from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, decimal_to_dms, \
+    generate_all_points, get_bounding_box, plot_waypoints
 
 logger = logging.getLogger(__name__)
 logger_info = logging.getLogger("info")
@@ -55,11 +59,24 @@ class FlightPathViewSet(ModelViewSet):
 
             try:
                 serializer.is_valid(raise_exception=True)
-                video = serializer.save(user=user)
+                polygon = requested_data['polygon_lat_lon']
+                bounding_box = get_bounding_box(polygon)
+                overlapping_percentage = requested_data['overlapping_percentage']
+                altitude = requested_data['altitude']
+
+                vertical_waypoints = generate_vertical_waypoints(bounding_box, altitude, overlapping_percentage)
+                horizontal_waypoints = generate_horizontal_waypoints(bounding_box, altitude, overlapping_percentage)
+
+                # Now generate all points
+                all_points = generate_all_points(vertical_waypoints, horizontal_waypoints)
+
+                plot_waypoints(bounding_box, all_points)
+
+                flight_path = serializer.save(user=user, waypoints=all_points)
                 message = "Waypoints created successfully."
                 logger_info.info(f"{message} by {user.username}")
                 return Response(
-                    success_true_response(data={"id": video.id}, message=message),
+                    success_true_response(data={"id": flight_path.id}, message=message),
                     status=status.HTTP_201_CREATED,
                 )
 
