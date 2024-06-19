@@ -24,6 +24,8 @@ env/
 drone_flight_planner/__init__.py
 accounts_engine/__init__.py
 accounts_engine/migrations/
+waypoint_generator/__init__.py
+waypoint_generator/migrations/
 
 # Distribution / packaging
 .Python
