@@ -69,6 +69,7 @@ def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage):
     FOV = 100.0  # Field of View in meters
     overlap_distance = FOV * (overlapping_percentage / 100.0)
     move_distance = FOV - overlap_distance
+    # start_move = -(move_distance - abs((FOV/2) - overlap_distance))
     start_move = abs((FOV/2) - overlap_distance)
 
     # Find the bounding box
@@ -113,6 +114,7 @@ def generate_vertical_waypoints(polygon, altitude, overlapping_percentage):
     FOV = 100.0  # Field of View in meters
     overlap_distance = FOV * (overlapping_percentage / 100.0)
     move_distance = FOV - overlap_distance
+    # start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
     start_move = abs((FOV / 2) - overlap_distance)
 
     # Find the bounding box
@@ -130,16 +132,11 @@ def generate_vertical_waypoints(polygon, altitude, overlapping_percentage):
     waypoints = []
     lat, lon = begin_lat, begin_lon
     direction = 0  # 0 for upward, 180 for downward
-    # while lon > min_lon:
-    # while (direction == 0 and lat < max_lat) or (direction == 180 and lat > min_lat):
     max_lat, max_lon = vertical_move_point(max_lat, max_lon, move_distance, direction)
 
     while lat <= max_lat:
         waypoints.append({"latitude": lat, "longitude": lon})
         lat, lon = vertical_move_point(lat, lon, move_distance, direction)
-        # direction = 180 - direction
-        # lon -= 0.00035972864236910596
-        # lat, lon = vertical_move_point(lat, lon, overlap_distance, 90)
 
     return waypoints
 
@@ -195,12 +192,12 @@ def plot_waypoints(bounding_box, all_points):
     # Plotting secondary points with a different color
     ax.plot(all_points_longitudes, all_points_latitudes, 'bo-', marker='s', label='all Points')
 
-    # Extracting latitude and longitude from secondary points
-    secondary_latitudes = [point['latitude'] for point in bounding_box]
-    secondary_longitudes = [point['longitude'] for point in bounding_box]
+    # Extracting latitude and longitude from bounding box points
+    bounding_box_latitudes = [point['latitude'] for point in bounding_box]
+    bounding_box_longitudes = [point['longitude'] for point in bounding_box]
 
     # Plotting secondary points with a different color
-    ax.plot(secondary_longitudes, secondary_latitudes, 'ro-', marker='x', label='Secondary Points')
+    ax.plot(bounding_box_longitudes, bounding_box_latitudes, 'ro-', marker='x', label='Bounding box points')
 
     # Adding labels and title
     ax.set_xlabel('Longitude')
