@@ -85,6 +85,8 @@ def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage):
     # Generate waypoints
     waypoints = []
     lat, lon = start_lat, start_lon
+
+    min_lat, min_lon = vertical_move_point(min_lat, min_lon, move_distance, 270)
     # while lat < max_lat:
     while lon > min_lon:
         waypoints.append({"latitude": lat, "longitude": lon})
@@ -129,7 +131,10 @@ def generate_vertical_waypoints(polygon, altitude, overlapping_percentage):
     lat, lon = begin_lat, begin_lon
     direction = 0  # 0 for upward, 180 for downward
     # while lon > min_lon:
-    while (direction == 0 and lat < max_lat) or (direction == 180 and lat > min_lat):
+    # while (direction == 0 and lat < max_lat) or (direction == 180 and lat > min_lat):
+    max_lat, max_lon = vertical_move_point(max_lat, max_lon, move_distance, direction)
+
+    while lat <= max_lat:
         waypoints.append({"latitude": lat, "longitude": lon})
         lat, lon = vertical_move_point(lat, lon, move_distance, direction)
         # direction = 180 - direction
