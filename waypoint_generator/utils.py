@@ -64,10 +64,11 @@ def horizontal_move_point(lat, lon, distance, bearing):
     return math.degrees(lat2), math.degrees(lon2)
 
 
-def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage):
+def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage, coverage_horizontal):
     # Constants
-    FOV = 100.0  # Field of View in meters
-    overlap_distance = FOV * (overlapping_percentage / 100.0)
+    # FOV = 100.0  # Field of View in meters
+    FOV = coverage_horizontal
+    overlap_distance = FOV * (overlapping_percentage / FOV)
     move_distance = FOV - overlap_distance
     # start_move = -(move_distance - abs((FOV/2) - overlap_distance))
     start_move = abs((FOV/2) - overlap_distance)
@@ -109,10 +110,11 @@ def vertical_move_point(lat, lon, distance, bearing):
     return math.degrees(lat2), math.degrees(lon2)
 
 
-def generate_vertical_waypoints(polygon, altitude, overlapping_percentage):
+def generate_vertical_waypoints(polygon, altitude, overlapping_percentage, coverage_vertical):
     # Constants
-    FOV = 100.0  # Field of View in meters
-    overlap_distance = FOV * (overlapping_percentage / 100.0)
+    # FOV = 100.0  # Field of View in meters
+    FOV = coverage_vertical
+    overlap_distance = FOV * (overlapping_percentage / FOV)
     move_distance = FOV - overlap_distance
     # start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
     start_move = abs((FOV / 2) - overlap_distance)
@@ -212,4 +214,28 @@ def plot_waypoints(bounding_box, all_points):
     plt.show()
 
 
+# Function to calculate FOV
+def calculate_fov(sensor_size, focal_length):
+    return 2 * math.degrees(math.atan(sensor_size / (2 * focal_length)))
 
+
+# Function to calculate coverage area
+def calculate_coverage(fov, height):
+    return 2 * (height * math.tan(math.radians(fov / 2)))
+
+
+def get_fov(height):
+    # GoPro HERO9 Black specifications
+    sensor_width = 6.17  # in mm
+    sensor_height = 4.55  # in mm
+    focal_length = 3  # in mm
+
+    # Calculate horizontal and vertical FOV
+    fov_horizontal = calculate_fov(sensor_width, focal_length)
+    fov_vertical = calculate_fov(sensor_height, focal_length)
+
+    # Calculate horizontal and vertical coverage
+    coverage_horizontal = calculate_coverage(fov_horizontal, height)
+    coverage_vertical = calculate_coverage(fov_vertical, height)
+
+    return coverage_vertical, coverage_horizontal

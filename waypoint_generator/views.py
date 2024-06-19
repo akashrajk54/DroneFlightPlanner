@@ -16,7 +16,7 @@ from accounts_engine.utils import success_true_response, success_false_response
 import logging
 
 from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, decimal_to_dms, \
-    generate_all_points, get_bounding_box, plot_waypoints
+    generate_all_points, get_bounding_box, plot_waypoints, get_fov
 
 logger = logging.getLogger(__name__)
 logger_info = logging.getLogger("info")
@@ -59,13 +59,17 @@ class FlightPathViewSet(ModelViewSet):
 
             try:
                 serializer.is_valid(raise_exception=True)
+
                 polygon = requested_data['polygon_lat_lon']
                 bounding_box = get_bounding_box(polygon)
                 overlapping_percentage = requested_data['overlapping_percentage']
                 altitude = requested_data['altitude']
 
-                vertical_waypoints = generate_vertical_waypoints(bounding_box, altitude, overlapping_percentage)
-                horizontal_waypoints = generate_horizontal_waypoints(bounding_box, altitude, overlapping_percentage)
+                # Calculate FOV
+                coverage_vertical, coverage_horizontal = get_fov(altitude)
+
+                vertical_waypoints = generate_vertical_waypoints(bounding_box, altitude, overlapping_percentage, coverage_vertical)
+                horizontal_waypoints = generate_horizontal_waypoints(bounding_box, altitude, overlapping_percentage, coverage_horizontal)
 
                 # Now generate all points
                 all_points = generate_all_points(vertical_waypoints, horizontal_waypoints)
