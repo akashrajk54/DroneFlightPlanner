@@ -10,12 +10,11 @@ from waypoint_generator.models import FlightPath
 from waypoint_generator.serializers import FlightPathSerializer
 from accounts_engine.utils import success_true_response, success_false_response
 
+from waypoint_generator.services import GoProHero9Black
+from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, \
+    generate_all_points, get_bounding_box, plot_waypoints
 
 import logging
-
-from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, decimal_to_dms, \
-    generate_all_points, get_bounding_box, plot_waypoints, get_fov
-
 logger = logging.getLogger(__name__)
 logger_info = logging.getLogger("info")
 logger_error = logging.getLogger("error")
@@ -33,7 +32,7 @@ class FlightPathViewSet(ModelViewSet):
 
     def __init__(self, *args, **kwargs):
         self.get_bounding_box = kwargs.pop('get_bounding_box', get_bounding_box)
-        self.get_fov = kwargs.pop('get_fov', get_fov)
+        self.camera = kwargs.pop('camera', GoProHero9Black())
         self.generate_vertical_waypoints = kwargs.pop('generate_vertical_waypoints', generate_vertical_waypoints)
         self.generate_horizontal_waypoints = kwargs.pop('generate_horizontal_waypoints', generate_horizontal_waypoints)
         self.generate_all_points = kwargs.pop('generate_all_points', generate_all_points)
@@ -73,7 +72,7 @@ class FlightPathViewSet(ModelViewSet):
                 altitude = requested_data['altitude']
 
                 # Calculate FOV
-                coverage_vertical, coverage_horizontal = self.get_fov(altitude)
+                coverage_vertical, coverage_horizontal = self.camera.get_fov(altitude)
 
                 vertical_waypoints = self.generate_vertical_waypoints(bounding_box, altitude, overlapping_percentage,
                                                                       coverage_vertical)
@@ -86,7 +85,7 @@ class FlightPathViewSet(ModelViewSet):
                 self.plot_waypoints(bounding_box, polygon, all_points)
 
                 flight_path = serializer.save(user=user, waypoints=all_points)
-                message = "Waypoints created successfully."
+                message = "Waypoints generated successfully"
                 logger_info.info(f"{message} by {user.username}")
                 return Response(
                     success_true_response(data={"id": flight_path.id}, message=message),
