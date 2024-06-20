@@ -29,22 +29,6 @@ def get_bounding_box(polygon):
         logger_error(f'Bounding box generating error {str(e)}')
         return []
 
-#
-# # Function to calculate distance between two lat/lon points using Haversine formula
-# def haversine_distance(lat1, lon1, lat2, lon2):
-#     R = 6371e3  # Earth radius in meters
-#     phi1 = math.radians(lat1)
-#     phi2 = math.radians(lat2)
-#     delta_phi = math.radians(lat2 - lat1)
-#     delta_lambda = math.radians(lon2 - lon1)
-#
-#     a = math.sin(delta_phi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2) ** 2
-#     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-#
-#     return R * c
-
-
-# Function to move a point by a certain distance in meters
 
 def dms_to_decimal(degrees, minutes, seconds):
     return degrees + (minutes / 60.0) + (seconds / 3600.0)
@@ -70,8 +54,8 @@ def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage, cov
     FOV = coverage_horizontal
     overlap_distance = FOV * (overlapping_percentage / FOV)
     move_distance = FOV - overlap_distance
-    # start_move = -(move_distance - abs((FOV/2) - overlap_distance))
-    start_move = abs((FOV/2) - overlap_distance)
+    start_move = -(move_distance - abs((FOV/2) - overlap_distance))
+    # start_move = abs((FOV/2) - overlap_distance)
 
     # Find the bounding box
     min_lat = min(point["latitude"] for point in polygon)
@@ -116,8 +100,8 @@ def generate_vertical_waypoints(polygon, altitude, overlapping_percentage, cover
     FOV = coverage_vertical
     overlap_distance = FOV * (overlapping_percentage / FOV)
     move_distance = FOV - overlap_distance
-    # start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
-    start_move = abs((FOV / 2) - overlap_distance)
+    start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
+    # start_move = abs((FOV / 2) - overlap_distance)
 
     # Find the bounding box
     min_lat = min(point["latitude"] for point in polygon)
@@ -163,28 +147,28 @@ def generate_all_points(vertical_points, horizontal_points):
     vertical_latitudes = [point['latitude'] for point in vertical_points]
     horizontal_longitudes = [point['longitude'] for point in horizontal_points]
 
-    ulta = False
+    reverse = False
     all_points = []
     
     fast_lat = vertical_latitudes[0]
     last_lat = vertical_latitudes[-1]
 
     for lon in horizontal_longitudes:
-        if not ulta:
+        if not reverse:
             for lat in vertical_latitudes:
                 all_points.append({'latitude': lat, 'longitude': lon})
                 if last_lat == lat:
-                    ulta = True
+                    reverse = True
         else:
             for lat in vertical_latitudes[::-1]:
                 all_points.append({'latitude': lat, 'longitude': lon})
                 if last_lat == lat:
-                    ulta = False
+                    reverse = False
 
     return all_points
 
 
-def plot_waypoints(bounding_box, all_points):
+def plot_waypoints(bounding_box, polygon, all_points):
     fig, ax = plt.subplots()
 
     # Extracting latitude and longitude from primary points
@@ -198,8 +182,17 @@ def plot_waypoints(bounding_box, all_points):
     bounding_box_latitudes = [point['latitude'] for point in bounding_box]
     bounding_box_longitudes = [point['longitude'] for point in bounding_box]
 
-    # Plotting secondary points with a different color
+    # Plotting bounding box points with a different color
     ax.plot(bounding_box_longitudes, bounding_box_latitudes, 'ro-', marker='x', label='Bounding box points')
+
+    # Extracting latitude and longitude from user polygon points
+    if polygon[0] != polygon[-1]:
+        polygon.append(polygon[0])
+    polygon_latitudes = [point['latitude'] for point in polygon]
+    polygon_longitudes = [point['longitude'] for point in polygon]
+
+    # Plotting user polygon points with a different color
+    ax.plot(polygon_longitudes, polygon_latitudes, 'gs-', marker='o', label='User polygon points')
 
     # Adding labels and title
     ax.set_xlabel('Longitude')
