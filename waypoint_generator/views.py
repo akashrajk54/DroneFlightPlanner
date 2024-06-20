@@ -11,10 +11,18 @@ from waypoint_generator.serializers import FlightPathSerializer
 from accounts_engine.utils import success_true_response, success_false_response
 
 from waypoint_generator.services import GoProHero9Black
-from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, \
-    generate_all_points, get_bounding_box, plot_waypoints, convert_polygon_to_decimal, filter_points
+from waypoint_generator.utils import (
+    generate_horizontal_waypoints,
+    generate_vertical_waypoints,
+    generate_all_points,
+    get_bounding_box,
+    plot_waypoints,
+    convert_polygon_to_decimal,
+    filter_points,
+)
 
 import logging
+
 logger = logging.getLogger(__name__)
 logger_info = logging.getLogger("info")
 logger_error = logging.getLogger("error")
@@ -31,14 +39,14 @@ class FlightPathViewSet(ModelViewSet):
     serializer_class = FlightPathSerializer
 
     def __init__(self, *args, **kwargs):
-        self.get_bounding_box = kwargs.pop('get_bounding_box', get_bounding_box)
-        self.camera = kwargs.pop('camera', GoProHero9Black())
-        self.generate_vertical_waypoints = kwargs.pop('generate_vertical_waypoints', generate_vertical_waypoints)
-        self.generate_horizontal_waypoints = kwargs.pop('generate_horizontal_waypoints', generate_horizontal_waypoints)
-        self.generate_all_points = kwargs.pop('generate_all_points', generate_all_points)
-        self.plot_waypoints = kwargs.pop('plot_waypoints', plot_waypoints)
-        self.convert_polygon_to_decimal = kwargs.pop('convert_polygon_to_decimal', convert_polygon_to_decimal)
-        self.filter_points = kwargs.pop('filter_points', filter_points)
+        self.get_bounding_box = kwargs.pop("get_bounding_box", get_bounding_box)
+        self.camera = kwargs.pop("camera", GoProHero9Black())
+        self.generate_vertical_waypoints = kwargs.pop("generate_vertical_waypoints", generate_vertical_waypoints)
+        self.generate_horizontal_waypoints = kwargs.pop("generate_horizontal_waypoints", generate_horizontal_waypoints)
+        self.generate_all_points = kwargs.pop("generate_all_points", generate_all_points)
+        self.plot_waypoints = kwargs.pop("plot_waypoints", plot_waypoints)
+        self.convert_polygon_to_decimal = kwargs.pop("convert_polygon_to_decimal", convert_polygon_to_decimal)
+        self.filter_points = kwargs.pop("filter_points", filter_points)
         super().__init__(*args, **kwargs)
 
     def get_permissions(self):
@@ -68,20 +76,22 @@ class FlightPathViewSet(ModelViewSet):
             try:
                 serializer.is_valid(raise_exception=True)
 
-                polygon = requested_data['polygon_lat_lon']
+                polygon = requested_data["polygon_lat_lon"]
                 # Convert polygon coordinates to decimal if in dms
                 polygon = self.convert_polygon_to_decimal(polygon)
                 bounding_box = self.get_bounding_box(polygon)
-                overlapping_percentage = requested_data['overlapping_percentage']
-                altitude = requested_data['altitude']
+                overlapping_percentage = requested_data["overlapping_percentage"]
+                altitude = requested_data["altitude"]
 
                 # Calculate FOV
                 coverage_vertical, coverage_horizontal = self.camera.get_fov(altitude)
 
-                vertical_waypoints = self.generate_vertical_waypoints(bounding_box, altitude, overlapping_percentage,
-                                                                      coverage_vertical)
-                horizontal_waypoints = self.generate_horizontal_waypoints(bounding_box, altitude,
-                                                                          overlapping_percentage, coverage_horizontal)
+                vertical_waypoints = self.generate_vertical_waypoints(
+                    bounding_box, altitude, overlapping_percentage, coverage_vertical
+                )
+                horizontal_waypoints = self.generate_horizontal_waypoints(
+                    bounding_box, altitude, overlapping_percentage, coverage_horizontal
+                )
 
                 # Now generate all points
                 all_points = self.generate_all_points(vertical_waypoints, horizontal_waypoints)

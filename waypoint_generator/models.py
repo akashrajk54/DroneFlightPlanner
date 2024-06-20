@@ -4,13 +4,17 @@ from accounts_engine.models import BaseClass, CustomUser
 
 class FlightPath(BaseClass):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="flightpaths")
-    polygon_lat_lon = models.JSONField(help_text="List of latitude and longitude coordinates forming the closed "
-                                                 "polygon.")
+    polygon_lat_lon = models.JSONField(
+        help_text="List of latitude and longitude coordinates forming the closed " "polygon."
+    )
     altitude = models.FloatField(help_text="Altitude in meters.")
     overlapping_percentage = models.FloatField(help_text="Image overlapping percentage.")
     drone_speed = models.FloatField(help_text="Speed of the drone in meters per second.", null=True, blank=True)
-    waypoints = models.JSONField(help_text="List of generated waypoints (latitude, longitude) in the format of "
-                                           "[(lat, lon), ...].", null=True, blank=True)
+    waypoints = models.JSONField(
+        help_text="List of generated waypoints (latitude, longitude) in the format of " "[(lat, lon), ...].",
+        null=True,
+        blank=True,
+    )
 
     def clean(self):
         if not isinstance(self.polygon_lat_lon, list) or len(self.polygon_lat_lon) < 3:
