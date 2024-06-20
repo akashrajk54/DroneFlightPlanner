@@ -2,6 +2,7 @@ import math
 import logging
 import warnings
 import matplotlib.pyplot as plt
+from shapely.geometry import Point, Polygon
 
 logger = logging.getLogger(__name__)
 logger_info = logging.getLogger("info")
@@ -186,14 +187,14 @@ def plot_waypoints(bounding_box, polygon, all_points):
     all_points_longitudes = [point['longitude'] for point in all_points]
 
     # Plotting all points
-    ax.plot(all_points_longitudes, all_points_latitudes, 'bo-', marker='s', label='all Points')
+    ax.plot(all_points_longitudes, all_points_latitudes, 'bo-', marker='s', label='Drone waypoints')
 
     # Extracting latitude and longitude from bounding box points
     bounding_box_latitudes = [point['latitude'] for point in bounding_box]
     bounding_box_longitudes = [point['longitude'] for point in bounding_box]
 
     # Plotting bounding box points with a different color
-    ax.plot(bounding_box_longitudes, bounding_box_latitudes, 'ro-', marker='x', label='Bounding box points')
+    ax.plot(bounding_box_longitudes, bounding_box_latitudes, 'ro-', marker='x', label='Bounding box')
 
     # Extracting latitude and longitude from user polygon points
     if polygon[0] != polygon[-1]:
@@ -202,12 +203,12 @@ def plot_waypoints(bounding_box, polygon, all_points):
     polygon_longitudes = [point['longitude'] for point in polygon]
 
     # Plotting user polygon points
-    ax.plot(polygon_longitudes, polygon_latitudes, 'gs-', marker='o', label='User polygon points')
+    ax.plot(polygon_longitudes, polygon_latitudes, 'gs-', marker='o', label='User polygon')
 
     # Adding labels and title
     ax.set_xlabel('Longitude')
     ax.set_ylabel('Latitude')
-    ax.set_title('Latitude and Longitude Points')
+    ax.set_title('Drone waypoints to cover whole polygon')
     ax.legend()
 
     # Show grid
@@ -250,3 +251,34 @@ def convert_polygon_to_decimal(polygon):
         converted_polygon.append({"latitude": latitude, "longitude": longitude})
     return converted_polygon
 
+
+def calculate_average_distance(points):
+    distances = []
+    for i in range(1, len(points)):
+        prev_point = points[i - 1]
+        curr_point = points[i]
+        distance = ((curr_point['latitude'] - prev_point['latitude']) ** 2 + (
+                    curr_point['longitude'] - prev_point['longitude']) ** 2) ** 0.5
+        distances.append(distance)
+    return sum(distances) / len(distances) if distances else 0
+
+
+def is_point_just_outside(polygon, point, buffer_distance):
+    buffered_polygon = polygon.buffer(buffer_distance)
+    return buffered_polygon.contains(point) and not polygon.contains(point)
+
+
+def filter_points(points, polygon_coords):
+    buffer_distance = calculate_average_distance(points)
+    polygon = Polygon([(p['longitude'], p['latitude']) for p in polygon_coords])
+    inside_points = []
+    just_outside_points = []
+
+    for p in points:
+        point = Point(p['longitude'], p['latitude'])
+        if polygon.contains(point):
+            inside_points.append(p)
+        elif is_point_just_outside(polygon, point, buffer_distance):
+            inside_points.append(p)
+
+    return inside_points

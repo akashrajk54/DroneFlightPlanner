@@ -12,7 +12,7 @@ from accounts_engine.utils import success_true_response, success_false_response
 
 from waypoint_generator.services import GoProHero9Black
 from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, \
-    generate_all_points, get_bounding_box, plot_waypoints, convert_polygon_to_decimal
+    generate_all_points, get_bounding_box, plot_waypoints, convert_polygon_to_decimal, filter_points
 
 import logging
 logger = logging.getLogger(__name__)
@@ -38,6 +38,7 @@ class FlightPathViewSet(ModelViewSet):
         self.generate_all_points = kwargs.pop('generate_all_points', generate_all_points)
         self.plot_waypoints = kwargs.pop('plot_waypoints', plot_waypoints)
         self.convert_polygon_to_decimal = kwargs.pop('convert_polygon_to_decimal', convert_polygon_to_decimal)
+        self.filter_points = kwargs.pop('filter_points', filter_points)
         super().__init__(*args, **kwargs)
 
     def get_permissions(self):
@@ -85,9 +86,11 @@ class FlightPathViewSet(ModelViewSet):
                 # Now generate all points
                 all_points = self.generate_all_points(vertical_waypoints, horizontal_waypoints)
 
-                self.plot_waypoints(bounding_box, polygon, all_points)
+                all_filter_points = self.filter_points(all_points, polygon)
 
-                flight_path = serializer.save(user=user, waypoints=all_points)
+                self.plot_waypoints(bounding_box, polygon, all_filter_points)
+
+                flight_path = serializer.save(user=user, waypoints=all_filter_points)
                 message = "Waypoints generated successfully"
                 logger_info.info(f"{message} by {user.username}")
                 return Response(
