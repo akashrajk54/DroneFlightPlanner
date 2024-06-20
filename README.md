@@ -5,7 +5,7 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 # Setup
 
    1. Clone the repository:
-       git clone https://github.com/akashrajk54/video-watch-history.git
+       git clone https://github.com/akashrajk54/DroneFlightPlanner/tree/development
 
    2. Navigate to the project directory:
        cd DroneFlightPlanner
