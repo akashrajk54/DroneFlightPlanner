@@ -215,3 +215,38 @@ def plot_waypoints(bounding_box, polygon, all_points):
 
     # Display the plot
     plt.show()
+
+
+def dms_to_decimal(dms_str):
+    # Example input: "23d48m35sN" or "86d41m24sE"
+    degrees, minutes, seconds = 0, 0, 0.0
+    if 'd' in dms_str:
+        degrees, dms_str = dms_str.split('d')
+        degrees = int(degrees)
+    if 'm' in dms_str:
+        minutes, dms_str = dms_str.split('m')
+        minutes = int(minutes)
+    if 's' in dms_str:
+        seconds = float(dms_str.strip('sNSEW'))
+
+    decimal_value = degrees + minutes / 60 + seconds / 3600
+
+    # Adjust for direction
+    if 'S' in dms_str or 'W' in dms_str:
+        decimal_value = -decimal_value
+
+    return decimal_value
+
+
+def convert_polygon_to_decimal(polygon):
+    converted_polygon = []
+    for point in polygon:
+        latitude = point["latitude"]
+        longitude = point["longitude"]
+        if isinstance(latitude, str) and "d" in latitude:
+            latitude = dms_to_decimal(latitude)
+        if isinstance(longitude, str) and "d" in longitude:
+            longitude = dms_to_decimal(longitude)
+        converted_polygon.append({"latitude": latitude, "longitude": longitude})
+    return converted_polygon
+

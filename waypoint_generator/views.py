@@ -12,7 +12,7 @@ from accounts_engine.utils import success_true_response, success_false_response
 
 from waypoint_generator.services import GoProHero9Black
 from waypoint_generator.utils import generate_horizontal_waypoints, generate_vertical_waypoints, \
-    generate_all_points, get_bounding_box, plot_waypoints
+    generate_all_points, get_bounding_box, plot_waypoints, convert_polygon_to_decimal
 
 import logging
 logger = logging.getLogger(__name__)
@@ -37,6 +37,7 @@ class FlightPathViewSet(ModelViewSet):
         self.generate_horizontal_waypoints = kwargs.pop('generate_horizontal_waypoints', generate_horizontal_waypoints)
         self.generate_all_points = kwargs.pop('generate_all_points', generate_all_points)
         self.plot_waypoints = kwargs.pop('plot_waypoints', plot_waypoints)
+        self.convert_polygon_to_decimal = kwargs.pop('convert_polygon_to_decimal', convert_polygon_to_decimal)
         super().__init__(*args, **kwargs)
 
     def get_permissions(self):
@@ -67,6 +68,8 @@ class FlightPathViewSet(ModelViewSet):
                 serializer.is_valid(raise_exception=True)
 
                 polygon = requested_data['polygon_lat_lon']
+                # Convert polygon coordinates to decimal if in dms
+                polygon = self.convert_polygon_to_decimal(polygon)
                 bounding_box = self.get_bounding_box(polygon)
                 overlapping_percentage = requested_data['overlapping_percentage']
                 altitude = requested_data['altitude']
