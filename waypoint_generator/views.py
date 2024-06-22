@@ -104,7 +104,7 @@ class FlightPathViewSet(ModelViewSet):
                 message = "Waypoints generated successfully"
                 logger_info.info(f"{message} by {user.username}")
                 return Response(
-                    success_true_response(data={"id": flight_path.id}, message=message),
+                    success_true_response(data={"id": flight_path.id, "waypoints": all_filter_points}, message=message),
                     status=status.HTTP_201_CREATED,
                 )
 
