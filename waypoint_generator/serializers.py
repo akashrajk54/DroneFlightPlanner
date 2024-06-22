@@ -14,4 +14,6 @@ class FlightPathSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Altitude must be at least 100 meters.")
         if data["overlapping_percentage"] < 50:
             raise serializers.ValidationError("Image overlapping percentage must be at least 50%.")
+        if data["overlapping_percentage"] >= 95:
+            raise serializers.ValidationError("Image overlapping percentage must be less then 95%.")
         return data

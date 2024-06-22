@@ -64,7 +64,7 @@ def horizontal_move_point(lat, lon, distance, bearing):
 
 def generate_horizontal_waypoints(polygon, altitude, overlapping_percentage, coverage_horizontal):
     FOV = coverage_horizontal
-    overlap_distance = FOV * (overlapping_percentage / FOV)
+    overlap_distance = FOV * (overlapping_percentage / 100)
     move_distance = FOV - overlap_distance
     start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
     # start_move = abs((FOV/2) - overlap_distance) # Use this if want to start from bounding box bottom point
@@ -113,7 +113,7 @@ def vertical_move_point(lat, lon, distance, bearing):
 
 def generate_vertical_waypoints(polygon, altitude, overlapping_percentage, coverage_vertical):
     FOV = coverage_vertical
-    overlap_distance = FOV * (overlapping_percentage / FOV)
+    overlap_distance = FOV * (overlapping_percentage / 100)
     move_distance = FOV - overlap_distance
     start_move = -(move_distance - abs((FOV / 2) - overlap_distance))
     # start_move = abs((FOV / 2) - overlap_distance)
