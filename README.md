@@ -22,7 +22,7 @@ A Django REST Framework (DRF) based web application for generating optimized fli
    5. Install dependencies:
       pip install -r requirements.txt
 
-   6. Set up environment variables:
+   6. Set up environment variables by creating a .env file:
        # DATABASE Use: PostgresSQL
        DATABASE_NAME=''
        DATABASE_USER=''
