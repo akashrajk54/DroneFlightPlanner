@@ -3,7 +3,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
 # Prerequisite:
     Python, Postman, and Git are installed into the system and Twilio account (This will be used as an OTP sending service).
-    Note: Use Python> 3.9, In this project, we used 3.10
+    **Note:** Use Python> 3.9, In this project, we used 3.10
 
 # Setup
 
@@ -53,7 +53,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        Go into your Twilio account, get the information (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER), and add the details below. If you are using a free Twilio account, make sure you use the same number to log in to DroneFlightPlanner using the sign-up/login API, as Twilio provides only one number that can receive OTPs during the free account period.
 
-       ## Below key-value pairs add into the .env file. For database use: PostgreSQL
+       ## Below key-value pairs add into the .env file. For database use PostgreSQL
 
            SECRET_KEY=''
 
@@ -77,11 +77,13 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
            Debug = True
 
-       Note: There should be no spaces around the "=" sign in to .env file
+       **Note:** There should be no spaces around the "=" sign in to .env file
 
    10. Create a folder with the name "logs" inside DroneFlightPlanner/
 
-   11. Run migrations to create the database schema:
+               mkdir logs
+
+   12. Run migrations to create the database schema:
        
               python manage.py makemigrations accounts_engine
       
@@ -89,15 +91,17 @@ A Django REST Framework (DRF) based web application for generating optimized dro
       
               python manage.py migrate
 
-   12. Create a superuser (admin) account:
+   13. Create a superuser (admin) account:
+       
+       ** Note:** Put a phone number with a country code like +91 for IN.
 
-               python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
+               python manage.py createsuperuser
 
-   14. Run the development server:
+   15. Run the development server:
 
               python manage.py runserver
       
-              (by default it will use 8000 port)
+       **Note:** By default, it will use **8000** port
 
 
 
