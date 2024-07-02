@@ -47,7 +47,7 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        SECRET_KEY=''
 
-       ## DATABASE Use: PostgresSQL
+       ### DATABASE Use: PostgresSQL
 
        DATABASE_NAME=''
 
@@ -59,7 +59,7 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        DATABASE_PORT='5432'
 
-       ## (otp valid max 3min)
+       ### (otp valid max 3min)
 
        MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
 
@@ -69,11 +69,11 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        TWILIO_PHONE_NUMBER=''
 
-       Debug = False
+       Debug = True
 
        Note: There should be no spaces around the "=" sign in to .env file
 
-       ## During production
+       ### During production
 
         Debug = False
 
