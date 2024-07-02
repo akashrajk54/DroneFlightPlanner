@@ -4,7 +4,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 # Prerequisite:
     
     Python, Postman, and Git are installed into the system and Twilio account (This will be used as an OTP sending service).
-    
+
     **Note:** Use Python> 3.9, In this project, we used 3.10
 
 # Setup
@@ -23,7 +23,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
            python -m venv venv
 
-   6. To activate the virtual environment run below command choose as per your os:
+   6. To activate the virtual environment run the below command and choose as per your os:
 
       a). Windows:
 
@@ -95,7 +95,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    13. Create a superuser (admin) account:
        
-       ** Note:** Put a phone number with a country code like +91 for IN.
+       **Note:** Put a phone number with a country code like +91 for IN.
 
                python manage.py createsuperuser
 
