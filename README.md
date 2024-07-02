@@ -1,9 +1,9 @@
 # drone-flight-planner
-A Django REST Framework (DRF) based web application for generating optimized flight paths for drones using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
+A Django REST Framework (DRF) based web application for generating optimized drone flight paths using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
-# prerequisite:
-    Python, Postman, Git installed into the system and Twilio account (This will be used as otp sending service).
-    Note: Use pyhton > 3.9, In this project we used 3.10
+# Prerequisite:
+    Python, Postman, and Git are installed into the system and Twilio account (This will be used as OTP sending service).
+    Note: Use Python> 3.9, In this project, we used 3.10
 
 # Setup
 
@@ -31,25 +31,23 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
       pip install -r requirements.txt
 
-   7. Set up environment variables by creating a .env file then add below key-values:
+   7. Set up environment variables by creating a .env file then add the key values:
 
        Generate a New Secret Key:
 
-       Into your terminal type "python" and hit enter it wil open python console then run below code:
+       Into your terminal type "python" and hit enter it will open the python console then run the below code:
 
        from django.core.management.utils import get_random_secret_key
 
        print(get_random_secret_key())
 
-       Use above printed key as your secret key for below variable.
+       You can use the above-printed key as your secret key for the below variable.
 
        Then type "exit()" to exit the python console
 
-       ## Below data (key-value pairs) add into the .env file
+       ## Below key-value pairs add into the .env file. For database use: PostgreSQL
 
        SECRET_KEY=''
-
-       ### DATABASE Use: PostgreSQL
 
        DATABASE_NAME=''
 
