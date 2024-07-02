@@ -121,7 +121,8 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
            http://127.0.0.1:8000/botlab
 
-    13. The Django server is started, let's fire APIs from Postman
+
+   13. The Django server is started, let's fire APIs from Postman
 
         a). Sign-up: Enter a phone number(Twilio should send the OTP) and fire the API. This will send an OTP to the phone number.
         b). Verify-OTP: This verifies the OTP and returned token as an authentication token. Save this returned token and use it when firing any other APIs as Bearer Token.
