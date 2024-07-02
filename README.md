@@ -83,11 +83,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    11. Run migrations to create the database schema:
        
-          python manage.py makemigrations accounts_engine
+              python manage.py makemigrations accounts_engine
       
-          python manage.py makemigrations waypoint_generator
+              python manage.py makemigrations waypoint_generator
       
-          python manage.py migrate
+              python manage.py migrate
 
    12. Create a superuser (admin) account:
           python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
