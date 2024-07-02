@@ -1,7 +1,7 @@
 # drone-flight-planner
 A Django REST Framework (DRF) based web application for generating optimized flight paths for drones using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
-# Prerequsite:
+# prerequisite:
     Python, Postman, Git installed into the system and Twilio account (This will be used as otp sending service).
     Note: Use pyhton > 3.9, In this project we used 3.10
 
@@ -30,17 +30,19 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
       pip install -r requirements.txt
 
-   6. Set up environment variables by creating a .env file:
+   6. Set up environment variables by creating a .env file then add below key-values:
 
        Generate a New Secret Key:
 
-       Into your terminal type "python" and hit enter it wil open python consone then run below code:
+       Into your terminal type "python" and hit enter it wil open python console then run below code:
 
        from django.core.management.utils import get_random_secret_key
 
        print(get_random_secret_key())
 
        Use above printed key as your secret key for below variable.
+
+       Then type "exit()" to exit the python console
 
        SECRET_KEY=''
 
@@ -68,16 +70,18 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        Note: Please Update DEFAULT_THROTTLE_RATES into the settings currently set to 100/Hours
 
-   7. Run migrations to create the database schema:
+   7. Create a folder with name "logs" inside DroneFlightPlanner/
+
+   8. Run migrations to create the database schema:
       python manage.py makemigrations
       python manage.py makemigrations accounts_engine
       python manage.py makemigrations waypoint_generator
       python manage.py migrate
 
-   8. Create a superuser (admin) account:
+   9. Create a superuser (admin) account:
       python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
-   9. Run the development server:
+   10. Run the development server:
       python manage.py runserver
       (by default it will use 8000 port)
 
