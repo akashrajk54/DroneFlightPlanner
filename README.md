@@ -9,17 +9,19 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    1. Clone the repository:
 
-       git clone https://github.com/akashrajk54/DroneFlightPlanner/tree/development
-
-   2. Navigate to the project directory:
+      git clone https://github.com/akashrajk54/DroneFlightPlanner.git
+      
+      git checkout development
+      
+   3. Navigate to the project directory:
 
        cd DroneFlightPlanner
 
-   3. Create a virtual environment (optional but recommended):
+   4. Create a virtual environment (optional but recommended):
 
        python -m venv venv
 
-   4. Activate the virtual environment:
+   5. Activate the virtual environment:
 
       a). Windows:
           venv\Scripts\activate
