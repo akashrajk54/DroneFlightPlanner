@@ -124,9 +124,13 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    13. The Django server is started, let's fire APIs from Postman
 
+
         a). Sign-up: Enter a phone number(Twilio should send the OTP) and fire the API. This will send an OTP to the phone number.
+
         b). Verify-OTP: This verifies the OTP and returned token as an authentication token. Save this returned token and use it when firing any other APIs as Bearer Token.
+
         c). Fire generate_waypoints API with polygon lat lon, overlapping percentage, and altitude, this will generate an image that shows the waypoints to capture images by drone.
+
         d). Cross this image and generated waypoints will be saved into the db.
 
 # Functionality:
