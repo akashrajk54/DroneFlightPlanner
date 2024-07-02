@@ -19,7 +19,6 @@ __pycache__/
 .venv
 env/
 .env
-/logs/log.log
 
 # Migrations
 drone_flight_planner/__init__.py

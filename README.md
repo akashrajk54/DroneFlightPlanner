@@ -1,33 +1,45 @@
 # drone-flight-planner
 A Django REST Framework (DRF) based web application for generating optimized flight paths for drones using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
+# Prerequsite:
+    Python, Postman, Git installed into the system and Twilio account (This will be used as otp sending service).
+    Note: Use pyhton > 3.9, In this project we used 3.10
 
 # Setup
 
    1. Clone the repository:
+
        git clone https://github.com/akashrajk54/DroneFlightPlanner/tree/development
 
    2. Navigate to the project directory:
+
        cd DroneFlightPlanner
 
    3. Create a virtual environment (optional but recommended):
+
        python -m venv venv
 
    4. Activate the virtual environment:
+
       a). Windows:
           venv\Scripts\activate
       b). Linux/macOS:
           source venv/bin/activate
 
    5. Install dependencies:
+
       pip install -r requirements.txt
 
    6. Set up environment variables by creating a .env file:
+
        Generate a New Secret Key:
-       Into your python console run below code: 
+
+       Into your terminal type "python" and hit enter it wil open python consone then run below code:
+
        from django.core.management.utils import get_random_secret_key
-       print(get_random_secret_key())           
-        
+
+       print(get_random_secret_key())
+
        Use above printed key as your secret key for below variable.
 
        SECRET_KEY=''
@@ -46,12 +58,15 @@ A Django REST Framework (DRF) based web application for generating optimized fli
        TWILIO_AUTH_TOKEN=''
        TWILIO_PHONE_NUMBER=''
 
+       Debug = False
+
        Note: There should be no spaces around the "=" sign in to .env file
 
-       # During production 
-            Debug = False
-            ALLOWED_HOSTS = insted of ['*'], please add specific frontend url, so that request from anyother will be rejected.
-       # Please Update DEFAULT_THROTTLE_RATES into the settings currently set to 100/Hours
+       # During production
+        Debug = False
+        ALLOWED_HOSTS = insted of ['*'], please add specific frontend url, so that request from anyother will be rejected.
+
+       Note: Please Update DEFAULT_THROTTLE_RATES into the settings currently set to 100/Hours
 
    7. Run migrations to create the database schema:
       python manage.py makemigrations
