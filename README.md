@@ -21,19 +21,21 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        python -m venv venv
 
-   6. Activate the virtual environment:
+   6. To activate the virtual environment run below command choose as per your os:
 
       a). Windows:
+
           venv\Scripts\activate
 
       b). Linux/macOS:
+
           source venv/bin/activate
 
-   7. Install dependencies:
+   8. Install dependencies:
 
       pip install -r requirements.txt
 
-   8. Set up environment variables by creating a .env file then add the key values:
+   9. Set up environment variables by creating a .env file then add the key values:
 
        Generate a New Django Secret Key:
 
@@ -77,9 +79,9 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        Note: There should be no spaces around the "=" sign in to .env file
 
-   9. Create a folder with the name "logs" inside DroneFlightPlanner/
+   10. Create a folder with the name "logs" inside DroneFlightPlanner/
 
-   10. Run migrations to create the database schema:
+   11. Run migrations to create the database schema:
        
       python manage.py makemigrations accounts_engine
       
