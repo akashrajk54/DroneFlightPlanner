@@ -47,43 +47,57 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        SECRET_KEY=''
 
-       # DATABASE Use: PostgresSQL
+       ## DATABASE Use: PostgresSQL
+
        DATABASE_NAME=''
+
        DATABASE_USER=''
+
        DATABASE_PASSWORD=''
+
        DATABASE_HOST='localhost'
+
        DATABASE_PORT='5432'
 
-       # (otp valid max 3min)
+       ## (otp valid max 3min)
+
        MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
 
        TWILIO_ACCOUNT_SID=''
+
        TWILIO_AUTH_TOKEN=''
+
        TWILIO_PHONE_NUMBER=''
 
        Debug = False
 
        Note: There should be no spaces around the "=" sign in to .env file
 
-       # During production
+       ## During production
+
         Debug = False
+
         ALLOWED_HOSTS = insted of ['*'], please add specific frontend url, so that request from anyother will be rejected.
 
        Note: Please Update DEFAULT_THROTTLE_RATES into the settings currently set to 100/Hours
 
-   8. Create a folder with name "logs" inside DroneFlightPlanner/
+   9. Create a folder with name "logs" inside DroneFlightPlanner/
 
-   9. Run migrations to create the database schema:
-      python manage.py makemigrations
+   10. Run migrations to create the database schema:
+       
       python manage.py makemigrations accounts_engine
+      
       python manage.py makemigrations waypoint_generator
+      
       python manage.py migrate
 
-   10. Create a superuser (admin) account:
+   12. Create a superuser (admin) account:
       python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
-   11. Run the development server:
+   13. Run the development server:
+
       python manage.py runserver
+      
       (by default it will use 8000 port)
 
 
