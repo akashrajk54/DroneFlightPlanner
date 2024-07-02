@@ -73,15 +73,7 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        Note: There should be no spaces around the "=" sign in to .env file
 
-       ### During production
-
-        Debug = False
-
-        ALLOWED_HOSTS = insted of ['*'], please add specific frontend url, so that request from anyother will be rejected.
-
-       Note: Please Update DEFAULT_THROTTLE_RATES into the settings currently set to 100/Hours
-
-   9. Create a folder with name "logs" inside DroneFlightPlanner/
+   9. Create a folder with the name "logs" inside DroneFlightPlanner/
 
    10. Run migrations to create the database schema:
        
