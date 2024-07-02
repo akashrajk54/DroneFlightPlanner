@@ -13,17 +13,17 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
           git clone https://github.com/akashrajk54/DroneFlightPlanner.git
       
-   3. Navigate to the project directory:
+   2. Navigate to the project directory:
 
           cd DroneFlightPlanner
 
           git checkout development
 
-   5. Create a virtual environment (optional but recommended):
+   3. Create a virtual environment (optional but recommended):
 
            python -m venv venv
 
-   6. To activate the virtual environment run the below command and choose as per your os:
+   4. To activate the virtual environment run the below command and choose as per your os:
 
       a). Windows:
 
@@ -33,11 +33,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
           source venv/bin/activate
 
-   8. Install dependencies:
+   5. Install dependencies:
 
           pip install -r requirements.txt
 
-   9. Set up environment variables by creating a .env file then add the key values:
+   6. Set up environment variables by creating a .env file then add the key values:
 
        Generate a New Django Secret Key:
 
@@ -85,11 +85,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        **Note:** There should be no spaces around the "=" sign in to .env file
 
-   10. Create a folder with the name "logs" inside DroneFlightPlanner/
+   7. Create a folder with the name "logs" inside DroneFlightPlanner/
 
                mkdir logs
 
-   12. Run migrations to create the database schema:
+   8. Run migrations to create the database schema:
        
               python manage.py makemigrations accounts_engine
       
@@ -97,22 +97,27 @@ A Django REST Framework (DRF) based web application for generating optimized dro
       
               python manage.py migrate
 
-   13. Create a superuser (admin) account:
+   9. Create a superuser (admin) account:
        
        **Note:** Put a phone number with a country code like +91 for IN.
 
                python manage.py createsuperuser
 
-   15. Run the development server:
+   10. Run the development server:
 
               python manage.py runserver
       
        **Note:** By default, it will use **8000** port
 
+    11. The Django server is started, let's fire APIs from Postman
 
+        a). Sign-up: Enter a phone number(Twilio should send the OTP) and fire the API. This will send an OTP to the phone number.
+        b). Verify-OTP: Verify that OTP saves that returned token as an authentication token and uses it when firing any other APIs.
+        c). Fire generate_waypoints API with polygon lat lon, overlapping percentage, and altitude, this will generate an image that shows the waypoints to capture images by drone.
+        d). Cross this image and generated waypoints will be saved into the db.
 
 # Functionality:
-The backend provides comprehensive functionality for managing Flight path, including user authentication, waypoint generation. Each API endpoint is designed to fulfill specific requirements, ensuring that users can perform desired actions efficiently and effectively.
+The backend provides comprehensive functionality for managing Flight paths, including user authentication, and waypoint generation. Each API endpoint is designed to fulfill specific requirements, ensuring that users can perform desired actions efficiently and effectively.
 
 # Code Quality:
 The backend codebase adheres to best practices for clean, maintainable, and well-documented code. It follows the Django framework conventions, utilizes descriptive variable and function names, and includes comments and docstrings to explain the purpose and usage of different components.
