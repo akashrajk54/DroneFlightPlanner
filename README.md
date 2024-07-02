@@ -41,11 +41,15 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        Generate a New Django Secret Key:
 
+
            Into your terminal type "python" and hit enter it will open the python console then run the below code:
+
 
            from django.core.management.utils import get_random_secret_key
 
+
            print(get_random_secret_key())
+
 
        You can use the above-printed key as your secret key for the below variable.
 
