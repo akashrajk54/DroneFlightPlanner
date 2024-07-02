@@ -2,12 +2,13 @@
 A Django REST Framework (DRF) based web application for generating optimized drone flight paths using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
 # Prerequisite:
-    
-    Python, Postman, and Git are installed into the system and Twilio account (This will be used as an OTP sending service).
+
+    Python, Postman, Git, PyCharm, or vscode  installed into the system and Twilio account (This will be used as an OTP sending service).
 
     **Note:** Use Python> 3.9, In this project, we used 3.10
 
 # Setup
+    Go into the folder you want to clone this project, then open the cmd/terminal at that folder and follow below steps.
 
    1. Clone the repository:
 
@@ -59,6 +60,12 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        Go into your Twilio account, get the information (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER), and add the details below. If you are using a free Twilio account, make sure you use the same number to log in to DroneFlightPlanner using the sign-up/login API, as Twilio provides only one number that can receive OTPs during the free account period.
 
+       ## Open clone project into IDE
+
+          Open vs-code > click on file > click on Open folder > Select the clone folder > click select folder.
+
+          Create a file ".env" inside DroneFlightPlanner/ 
+       
        ## Below key-value pairs add into the .env file. For database use PostgreSQL
 
            SECRET_KEY=''
@@ -85,11 +92,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        **Note:** There should be no spaces around the "=" sign in to .env file
 
-   7. Create a folder with the name "logs" inside DroneFlightPlanner/
+   8. Create a folder with the name "logs" inside DroneFlightPlanner/
 
                mkdir logs
 
-   8. Run migrations to create the database schema:
+   9. Run migrations to create the database schema:
        
               python manage.py makemigrations accounts_engine
       
@@ -97,13 +104,13 @@ A Django REST Framework (DRF) based web application for generating optimized dro
       
               python manage.py migrate
 
-   9. Create a superuser (admin) account:
+   10. Create a superuser (admin) account:
        
        **Note:** Put a phone number with a country code like +91 for IN.
 
                python manage.py createsuperuser
 
-   10. Run the development server:
+   11. Run the development server:
 
               python manage.py runserver
       
