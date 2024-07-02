@@ -2,7 +2,7 @@
 A Django REST Framework (DRF) based web application for generating optimized drone flight paths using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
 # Prerequisite:
-    Python, Postman, and Git are installed into the system and Twilio account (This will be used as OTP sending service).
+    Python, Postman, and Git are installed into the system and Twilio account (This will be used as an OTP sending service).
     Note: Use Python> 3.9, In this project, we used 3.10
 
 # Setup
@@ -11,17 +11,17 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
       git clone https://github.com/akashrajk54/DroneFlightPlanner.git
       
-      git checkout development
-      
    3. Navigate to the project directory:
 
-       cd DroneFlightPlanner
+      cd DroneFlightPlanner
 
-   4. Create a virtual environment (optional but recommended):
+      git checkout development
+
+   5. Create a virtual environment (optional but recommended):
 
        python -m venv venv
 
-   5. Activate the virtual environment:
+   6. Activate the virtual environment:
 
       a). Windows:
           venv\Scripts\activate
@@ -29,11 +29,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
       b). Linux/macOS:
           source venv/bin/activate
 
-   6. Install dependencies:
+   7. Install dependencies:
 
       pip install -r requirements.txt
 
-   7. Set up environment variables by creating a .env file then add the key values:
+   8. Set up environment variables by creating a .env file then add the key values:
 
        Generate a New Django Secret Key:
 
