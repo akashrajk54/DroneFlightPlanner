@@ -45,9 +45,11 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
        Then type "exit()" to exit the python console
 
+       ## Below data (key-value pairs) add into the .env file
+
        SECRET_KEY=''
 
-       ### DATABASE Use: PostgresSQL
+       ### DATABASE Use: PostgreSQL
 
        DATABASE_NAME=''
 
@@ -58,8 +60,6 @@ A Django REST Framework (DRF) based web application for generating optimized fli
        DATABASE_HOST='localhost'
 
        DATABASE_PORT='5432'
-
-       ### (otp valid max 3min)
 
        MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
 
