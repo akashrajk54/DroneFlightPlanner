@@ -2,7 +2,9 @@
 A Django REST Framework (DRF) based web application for generating optimized drone flight paths using polygon coordinates. Users can create polygons via an API, customize image overlap percentages, and receive an XML file with waypoints. Features robust error handling and efficient flight path algorithms.
 
 # Prerequisite:
+    
     Python, Postman, and Git are installed into the system and Twilio account (This will be used as an OTP sending service).
+    
     **Note:** Use Python> 3.9, In this project, we used 3.10
 
 # Setup
