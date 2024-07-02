@@ -9,17 +9,17 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    1. Clone the repository:
 
-      git clone https://github.com/akashrajk54/DroneFlightPlanner.git
+          git clone https://github.com/akashrajk54/DroneFlightPlanner.git
       
    3. Navigate to the project directory:
 
-      cd DroneFlightPlanner
+          cd DroneFlightPlanner
 
-      git checkout development
+          git checkout development
 
    5. Create a virtual environment (optional but recommended):
 
-       python -m venv venv
+           python -m venv venv
 
    6. To activate the virtual environment run below command choose as per your os:
 
@@ -33,17 +33,17 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    8. Install dependencies:
 
-      pip install -r requirements.txt
+          pip install -r requirements.txt
 
    9. Set up environment variables by creating a .env file then add the key values:
 
        Generate a New Django Secret Key:
 
-       Into your terminal type "python" and hit enter it will open the python console then run the below code:
+           Into your terminal type "python" and hit enter it will open the python console then run the below code:
 
-       from django.core.management.utils import get_random_secret_key
+           from django.core.management.utils import get_random_secret_key
 
-       print(get_random_secret_key())
+           print(get_random_secret_key())
 
        You can use the above-printed key as your secret key for the below variable.
 
@@ -55,27 +55,27 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        ## Below key-value pairs add into the .env file. For database use: PostgreSQL
 
-       SECRET_KEY=''
+           SECRET_KEY=''
 
-       DATABASE_NAME=''
+           DATABASE_NAME=''
 
-       DATABASE_USER=''
+           DATABASE_USER=''
 
-       DATABASE_PASSWORD=''
+           DATABASE_PASSWORD=''
 
-       DATABASE_HOST='localhost'
+           DATABASE_HOST='localhost'
 
-       DATABASE_PORT='5432'
+           DATABASE_PORT='5432'
 
-       MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
+           MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
 
-       TWILIO_ACCOUNT_SID=''
+           TWILIO_ACCOUNT_SID=''
 
-       TWILIO_AUTH_TOKEN=''
+           TWILIO_AUTH_TOKEN=''
 
-       TWILIO_PHONE_NUMBER=''
+           TWILIO_PHONE_NUMBER=''
 
-       Debug = True
+           Debug = True
 
        Note: There should be no spaces around the "=" sign in to .env file
 
@@ -83,20 +83,20 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    11. Run migrations to create the database schema:
        
-      python manage.py makemigrations accounts_engine
+          python manage.py makemigrations accounts_engine
       
-      python manage.py makemigrations waypoint_generator
+          python manage.py makemigrations waypoint_generator
       
-      python manage.py migrate
+          python manage.py migrate
 
    12. Create a superuser (admin) account:
-      python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
+          python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
    13. Run the development server:
 
-      python manage.py runserver
+          python manage.py runserver
       
-      (by default it will use 8000 port)
+          (by default it will use 8000 port)
 
 
 
