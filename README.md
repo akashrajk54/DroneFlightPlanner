@@ -23,6 +23,15 @@ A Django REST Framework (DRF) based web application for generating optimized fli
       pip install -r requirements.txt
 
    6. Set up environment variables by creating a .env file:
+       Generate a New Secret Key:
+       Into your python console run below code: 
+       from django.core.management.utils import get_random_secret_key
+       print(get_random_secret_key())           
+        
+       Use above printed key as your secret key for below variable.
+
+       SECRET_KEY=''
+
        # DATABASE Use: PostgresSQL
        DATABASE_NAME=''
        DATABASE_USER=''
@@ -30,11 +39,14 @@ A Django REST Framework (DRF) based web application for generating optimized fli
        DATABASE_HOST='localhost'
        DATABASE_PORT='5432'
 
-       MAX_TIME_LIMIT_TO_VERIFY_OTP='3' (otp valid max 3min)
+       # (otp valid max 3min)
+       MAX_TIME_LIMIT_TO_VERIFY_OTP='3'
 
        TWILIO_ACCOUNT_SID=''
        TWILIO_AUTH_TOKEN=''
        TWILIO_PHONE_NUMBER=''
+
+       Note: There should be no spaces around the "=" sign in to .env file
 
        # During production 
             Debug = False
@@ -43,10 +55,12 @@ A Django REST Framework (DRF) based web application for generating optimized fli
 
    7. Run migrations to create the database schema:
       python manage.py makemigrations
+      python manage.py makemigrations accounts_engine
+      python manage.py makemigrations waypoint_generator
       python manage.py migrate
 
    8. Create a superuser (admin) account:
-      python manage.py createsuperuser
+      python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
    9. Run the development server:
       python manage.py runserver
