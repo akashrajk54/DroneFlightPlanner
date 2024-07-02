@@ -33,7 +33,7 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
    7. Set up environment variables by creating a .env file then add the key values:
 
-       Generate a New Secret Key:
+       Generate a New Django Secret Key:
 
        Into your terminal type "python" and hit enter it will open the python console then run the below code:
 
@@ -43,7 +43,11 @@ A Django REST Framework (DRF) based web application for generating optimized dro
 
        You can use the above-printed key as your secret key for the below variable.
 
-       Then type "exit()" to exit the python console
+       Then type "exit()" to exit the Python console.
+
+       Create a database in Postgres and add its details (DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD) below.
+
+       Go into your Twilio account, get the information (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER), and add the details below. If you are using a free Twilio account, make sure you use the same number to log in to DroneFlightPlanner using the sign-up/login API, as Twilio provides only one number that can receive OTPs during the free account period.
 
        ## Below key-value pairs add into the .env file. For database use: PostgreSQL
 
