@@ -90,13 +90,14 @@ A Django REST Framework (DRF) based web application for generating optimized dro
               python manage.py migrate
 
    12. Create a superuser (admin) account:
-          python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
-   13. Run the development server:
+               python manage.py createsuperuser  # Put a phone number with country code like +91 for IN.
 
-          python manage.py runserver
+   14. Run the development server:
+
+              python manage.py runserver
       
-          (by default it will use 8000 port)
+              (by default it will use 8000 port)
 
 
 
